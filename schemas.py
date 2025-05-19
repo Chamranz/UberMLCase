@@ -13,4 +13,4 @@ class BatchPredictionRequest(BaseModel):
     data: List[PredictionRequest]
 
 class PredictionResponse(BaseModel):
-    predictions: List[float]
+    predictions: List[str]
