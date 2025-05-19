@@ -9,5 +9,5 @@ Kind reminder:
 
 1. python -m venv .mlops-venv
 2. source .mlops-venv/bin/activate
-3. pip install requirements.txt
+3. pip install -r requirements.txt
 4. Аминь
