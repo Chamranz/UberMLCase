@@ -29,7 +29,9 @@ def predict(request: BatchPredictionRequest):
     try:
         features_list = [item.dict() for item in request.data]
         predictions = predicted_prices(model, features_list)
-        return {"predictions": predictions}
+        predictions = predicted_prices(model, features_list)
+        formatted_predictions = [f"{p:.2f} $" for p in predictions]
+        return {"predictions": formatted_predictions}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка предсказания: {str(e)}")
 
