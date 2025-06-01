@@ -1,0 +1,7 @@
+__pycache__
+*.log
+*.pyc
+*.md
+dataset.csv
+train_and_save_model.py
+```
