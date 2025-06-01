@@ -1,4 +1,8 @@
-Модель из ключевого кейса обернута в fastapi. В шаблоне cookie-cutter
+Модель из ключевого кейса обернута в fastapi. В шаблоне cookie-cutter. Чтобы собрать репозиторий по шаблону:
+
+1. pip install cookiecutter
+
+2. cookiecutter https://github.com/Chamranz/UberMLCase.git - проставляем нужные параметры проекта
 
 Для удобства ввода данных имеется форма:
 
@@ -9,6 +13,9 @@
 Kind reminder:
 
 python -m venv .mlops-venv
+
 source .mlops-venv/bin/activate
+
 pip install -r requirements.txt
+
 Аминь
