@@ -30,7 +30,11 @@ def predict(request: BatchPredictionRequest):
         features_list = [item.dict() for item in request.data]
         predictions = predicted_prices(model, features_list)
         formatted_predictions = [f"{p:.2f} $" for p in predictions]
+<<<<<<< HEAD:{{cookiecutter.project_name}}/main.py
         return {"predictions": formatted_predictions}               
+=======
+        return {"predictions": formatted_predictions}
+>>>>>>> 7fd6aad200107a9da3b86fe21a310961d659f746:main.py
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка предсказания: {str(e)}")
 

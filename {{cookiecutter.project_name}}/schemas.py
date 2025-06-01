@@ -13,4 +13,8 @@ class BatchPredictionRequest(BaseModel):
     data: List[PredictionRequest]
 
 class PredictionResponse(BaseModel):
+<<<<<<< HEAD:{{cookiecutter.project_name}}/schemas.py
     predictions: List[str]
+=======
+    predictions: List[str]
+>>>>>>> 7fd6aad200107a9da3b86fe21a310961d659f746:schemas.py
