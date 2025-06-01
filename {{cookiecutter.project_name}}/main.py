@@ -30,11 +30,8 @@ def predict(request: BatchPredictionRequest):
         features_list = [item.dict() for item in request.data]
         predictions = predicted_prices(model, features_list)
         formatted_predictions = [f"{p:.2f} $" for p in predictions]
-<<<<<<< HEAD:{{cookiecutter.project_name}}/main.py
-        return {"predictions": formatted_predictions}               
-=======
+        print(formatted_predictions)
         return {"predictions": formatted_predictions}
->>>>>>> 7fd6aad200107a9da3b86fe21a310961d659f746:main.py
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка предсказания: {str(e)}")
 
@@ -78,24 +75,40 @@ async def get_form():
             <div class="result" id="result"></div>
 
             <script>
-                document.getElementById('predictForm').addEventListener('submit', async function (e) {
-                    e.preventDefault();
-                    const formData = new FormData(this);
-                    const data = Object.fromEntries(formData);
+    document.getElementById('predictForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        
+        // Получаем объект и конвертируем значения в нужные типы
+        const data = {};
+        formData.forEach((value, key) => {
+            if (key === 'passenger_count') {
+                data[key] = parseInt(value);
+            } else {
+                data[key] = parseFloat(value);
+            }
+        });
 
-                    const response = await fetch('/api/predict/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({data: [data]})
-                    });
+        const response = await fetch('/api/predict/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: [data] })  // Обязательно массив внутри data
+        });
 
-                    const result = await response.json();
-                    document.getElementById('result').innerText = 
-                        'Predicted Price: $' + result.predictions[0].toFixed(2);
-                });
-            </script>
+        if (!response.ok) {
+            const errorData = await response.json();
+            document.getElementById('result').innerText = 
+                'Ошибка: ' + (errorData.detail || 'Неизвестная ошибка');
+            return;
+        }
+
+        const result = await response.json();
+        document.getElementById('result').innerText = 
+            'Прогнозируемая цена: $' + result.predictions[0];
+    });
+</script>
         </body>
     </html>
     """
