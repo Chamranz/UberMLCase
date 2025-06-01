@@ -1,0 +1,11 @@
+{
+  "project_name": "uber-ml-predictor",
+  "author": "Kamran",
+  "version": "0.0.1",
+  "_copy_without_render": [
+    "*.pkl",
+    "*.csv",
+    "__pycache__",
+    ".pyc"
+  ]
+}
