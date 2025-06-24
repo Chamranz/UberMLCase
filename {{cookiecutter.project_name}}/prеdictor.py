@@ -27,7 +27,6 @@ def train_and_save_model():
     joblib.dump(predictor, "predictor.pkl")
 
 def load_model():
-    
     return joblib.load("predictor.pkl")
 
 def predicted_prices(model, features_list):
