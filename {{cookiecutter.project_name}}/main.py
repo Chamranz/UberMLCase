@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException, Request
 from predictor import load_model, predicted_prices
 from fastapi.responses import HTMLResponse
 from schemas import BatchPredictionRequest, PredictionResponse
-from typing import List
 
 # Инициализация приложения с метаданными для документации
 app = FastAPI(
