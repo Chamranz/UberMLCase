@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi import FastAPI, HTTPException, Request
 from predictor import load_model, predicted_prices
 from fastapi.responses import HTMLResponse
 from schemas import BatchPredictionRequest, PredictionResponse
@@ -10,33 +10,31 @@ app = FastAPI(
     description="Предскажи цену поездки в Uber на основе градиентного бустинга.",
     version="1.0.0",
     contact={
-        "name": "Your Name",  # Используйте общее имя или организации, предоставляющей сервис
+        "name": "Your Name", #Используйте общее имя или организации, предоставляющей сервис
         "email": "your_email@example.com"  # Общий email
     }
 )
 
-# Загрузка модели при старте сервера (выполняется один раз)
-model = load_model()
+model=load_model()  # E225: отсутствие пробелов вокруг оператора
 
-# Маршрут для проверки работоспособности сервиса
+
 @app.get("/", tags=["Health Check"])
 def read_root():
-    return {"message": "🚗 Uber Price Predictor is running!"}
+ return {"message": "🚗 Uber Price Predictor is running!"}  # E111: неверный отступ
 
-# Основной маршрут для получения предсказаний
+
 @app.post("/api/predict/", response_model=PredictionResponse, tags=["Predictions"])
 def predict(request: BatchPredictionRequest):
     try:
-        features_list = [item.dict() for item in request.data]
-        predictions = predicted_prices(model, features_list)
-        formatted_predictions = [f"{p:.2f} $" for p in predictions]
+        features_list=[item.dict() for item in request.data]  # E225, E704
+        predictions=predicted_prices(model, features_list)  # E225
+        formatted_predictions=[f"{p:.2f} $" for p in predictions]
         print(formatted_predictions)
-        return {"predictions": formatted_predictions}
+        return {"predictions":formatted_predictions}  # E201/E202
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ошибка предсказания: {str(e)}")
+        raise HTTPException(status_code=500,detail=f"Ошибка предсказания: {str(e)}")  # E225,E211
 
 
-# Форма для заполнения данных
 @app.get("/predict/form/", response_class=HTMLResponse, tags=["UI"])
 async def get_form():
     html_content = """
@@ -111,5 +109,4 @@ async def get_form():
 </script>
         </body>
     </html>
-    """
-    return HTMLResponse(content=html_content, status_code=200)
+    """ ; return HTMLResponse(content=html_content, status_code=200)  # E702, E231

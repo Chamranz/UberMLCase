@@ -30,7 +30,22 @@ def load_model():
     return joblib.load("predictor.pkl")
 
 def predicted_prices(model, features_list):
+
+    """
+    Делает предсказания стоимости поездок на основе входных признаков/
+    
+    Parameters:
+        model (GradientBoostingRegressor): Обученная модель.
+        features_list (list of dict): Список словарей, каждый из которых содержит значения признаков:
+            - pickup_latitude (float)
+            - pickup_longitude (float)
+            - dropoff_latitude (float)
+            - dropoff_longitude (float)
+            - passenger_count (int)
+    """
+
     df = pd.DataFrame(features_list, columns=FEATURE_ORDER)
+
     predictions = model.predict(df)
 
     return predictions.tolist()
